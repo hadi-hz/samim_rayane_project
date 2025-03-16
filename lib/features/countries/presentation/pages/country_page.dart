@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:samim_rayane_project/core/constant.dart';
 import 'package:samim_rayane_project/features/countries/presentation/bloc/country_bloc.dart';
 import 'package:samim_rayane_project/features/countries/presentation/bloc/country_state.dart';
-// import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class CountryListPage extends StatelessWidget {
   @override
@@ -56,7 +56,7 @@ class CountryListPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              country.name,
+                              country.name ?? "نام این کشور وجود ندارد",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
@@ -70,7 +70,7 @@ class CountryListPage extends StatelessWidget {
                             ),
                             SizedBox(width: 5),
                             Text(
-                              country.capital,
+                              country.capital ?? "نام این پایتخت وجود ندارد",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
