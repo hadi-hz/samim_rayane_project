@@ -4,15 +4,15 @@ class DioClient {
   final Dio dio;
 
   DioClient({Dio? dio})
-      : dio = dio ?? Dio(BaseOptions(
-          baseUrl: "https://raw.githubusercontent.com/PouriaMoradi021/countries-api/", 
-          connectTimeout: const Duration(seconds: 10), 
-          receiveTimeout: const Duration(seconds: 10),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-        )) {
+      : dio = dio ??
+            Dio(
+               BaseOptions(
+    baseUrl: "https://raw.githubusercontent.com/PouriaMoradi021/countries-api/",
+    connectTimeout: Duration(seconds: 30), 
+    receiveTimeout: Duration(seconds: 30),
+  ),
+              
+            ) {
     _setupInterceptors();
   }
 
@@ -35,7 +35,8 @@ class DioClient {
     ));
   }
 
-   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) async {
+  Future<Response> get(String path,
+      {Map<String, dynamic>? queryParameters}) async {
     try {
       return await dio.get(path, queryParameters: queryParameters);
     } on DioException catch (e) {
