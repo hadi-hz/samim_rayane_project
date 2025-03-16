@@ -16,12 +16,5 @@ class CountryModel extends Country {
         flag: json['flag']);
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'capital': capital,
-      'code': code,
-      'flag': flag,
-    };
-  }
+
 }

@@ -2,21 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:samim_rayane_project/core/constant.dart';
 import 'package:samim_rayane_project/features/countries/presentation/bloc/country_bloc.dart';
-import 'package:samim_rayane_project/features/countries/presentation/bloc/country_event.dart';
 import 'package:samim_rayane_project/features/countries/presentation/bloc/country_state.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 
-class CountryListPage extends StatefulWidget {
-  @override
-  _CountryListPageState createState() => _CountryListPageState();
-}
-
-class _CountryListPageState extends State<CountryListPage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<CountryBloc>().add(GetCountryList());
-  }
-
+class CountryListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,61 +27,73 @@ class _CountryListPageState extends State<CountryListPage> {
             if (state is CountryLoading) {
               return Center(child: CircularProgressIndicator());
             } else if (state is CountryLoaded) {
-              return ListView.builder(
-                padding:
-                    EdgeInsetsDirectional.only(start: 16, end: 16, top: 16),
-                itemCount: state.countries.length,
-                itemBuilder: (context, index) {
-                  final country = state.countries[index];
-                  return Container(
-                    padding: EdgeInsetsDirectional.only(start: 16),
-                    margin: EdgeInsetsDirectional.only(bottom: 8),
-                    width: MediaQuery.sizeOf(context).width * 0.8,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: ThemeColor.backgroundBox,
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: ListView.builder(
+                  padding:
+                      EdgeInsetsDirectional.only(start: 16, end: 16, top: 16),
+                  itemCount: state.countries.length,
+                  itemBuilder: (context, index) {
+                    final country = state.countries[index];
+                    return Container(
+                      padding: EdgeInsetsDirectional.only(start: 16),
+                      margin: EdgeInsetsDirectional.only(bottom: 8),
+                      width: MediaQuery.sizeOf(context).width * 0.8,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: ThemeColor.backgroundBox,
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
                             height: 40,
                             width: 40,
-                            child: Image.network(
+                            child: 
+                            // CachedNetworkImage(
+                            //   imageUrl: country.flag,
+                            //   placeholder: (context, url) =>
+                            //       CircularProgressIndicator(),
+                            //   errorWidget: (context, url, error) =>
+                            //       Icon(Icons.flag),
+                            // ),
+                            Image.network(
                               country.flag,
-                            )),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "${country.name}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: ThemeColor.textColor),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.location_city,
-                          color: ThemeColor.primarytext,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "${country.capital}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: ThemeColor.textColor),
-                        ),
-                        SizedBox(
-                          width: 16,
-                        )
-                      ],
-                    ),
-                  );
-                },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "${country.name}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: ThemeColor.textColor),
+                          ),
+                          Spacer(),
+                          Icon(
+                            Icons.location_city,
+                            color: ThemeColor.primarytext,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "${country.capital }",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: ThemeColor.textColor),
+                          ),
+                          SizedBox(
+                            width: 16,
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
               );
             } else if (state is CountryError) {
               return Center(
